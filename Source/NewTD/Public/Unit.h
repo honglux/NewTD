@@ -14,7 +14,7 @@ class NEWTD_API AUnit : public APawn
 public:
 	// Sets default values for this pawn's properties
 	AUnit();
-
+	int getHealth() { return health;}
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -26,4 +26,10 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+private:
+	float health;
+	float damage;
+	float attack_interval;
+	int cost;
+	FVector location;
 };
