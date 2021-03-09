@@ -13,7 +13,7 @@ class NEWTD_API AGameGridBase : public AActor
 
 protected:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	int y_offset;
+	int z_offset;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	int lx;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
@@ -24,14 +24,20 @@ protected:
 	int uy;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	int gap;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	bool use_ZO;
 	
 public:	
 	// Sets default values for this actor's properties
 	AGameGridBase();
 	
-	//bool InitGrid(int _lx, int _rx, int _dy, int _uy, int _gap);
+	UFUNCTION(BlueprintCallable)
+	bool InitGrid(int _z_offset, int _lx, int _rx, int _dy, int _uy, int _gap,
+		bool _use_ZO);
 	UFUNCTION(BlueprintCallable)
 	virtual FVector Grid_pos_cal(const FVector& pos);
+	UFUNCTION(BlueprintImplementableEvent)
+	FVector Editor_grid_pos_cal(const FVector& pos);
 
 protected:
 	// Called when the game starts or when spawned

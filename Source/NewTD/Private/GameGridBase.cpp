@@ -11,15 +11,18 @@ AGameGridBase::AGameGridBase()
 
 }
 
-//bool AGameGridBase::InitGrid(int _lx, int _rx, int _dy, int _uy, int _gap)
-//{
-//	lx = _lx;
-//	rx = _rx;
-//	dy = _dy;
-//	uy = _uy;
-//	gap = _gap;
-//	return false;
-//}
+bool AGameGridBase::InitGrid(int _z_offset, int _lx, int _rx, int _dy, int _uy, int _gap,
+	bool _use_ZO)
+{
+	z_offset = _z_offset;
+	lx = _lx;
+	rx = _rx;
+	dy = _dy;
+	uy = _uy;
+	gap = _gap;
+	use_ZO = _use_ZO;
+	return false;
+}
 
 FVector AGameGridBase::Grid_pos_cal(const FVector& pos)
 {
@@ -28,9 +31,17 @@ FVector AGameGridBase::Grid_pos_cal(const FVector& pos)
 	int posy = (int)pos.Y;
 	int gridx = Grid_axis_cal(posx);
 	int gridy = Grid_axis_cal(posy);
-	FVector pos2 = FVector(gridx, gridy, y_offset);
+	int z = 0;
+	if (use_ZO) { z = z_offset; }
+	else { z = pos.Z; }
+	FVector pos2 = FVector(gridx, gridy, z);
 	return pos2;
 }
+
+//FVector AGameGridBase::Editor_grid_pos_cal(const FVector& pos)
+//{
+//	return FVector();
+//}
 
 // Called when the game starts or when spawned
 void AGameGridBase::BeginPlay()
@@ -55,3 +66,7 @@ void AGameGridBase::Tick(float DeltaTime)
 
 }
 
+//FVector AGameGridBase::Editor_grid_pos_cal_Implementation(const FVector& pos)
+//{
+//	return FVector::ZeroVector;
+//}
