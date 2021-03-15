@@ -8,7 +8,13 @@ AGameGridBase::AGameGridBase()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
-
+	z_offset = 0;
+	lx = 0;
+	rx = 0;
+	dy = 0;
+	uy = 0;
+	gap = 0;
+	grid_poses = TArray<FVector>();
 }
 
 bool AGameGridBase::InitGrid(int _z_offset, int _lx, int _rx, int _dy, int _uy, int _gap,
@@ -21,7 +27,7 @@ bool AGameGridBase::InitGrid(int _z_offset, int _lx, int _rx, int _dy, int _uy, 
 	uy = _uy;
 	gap = _gap;
 	use_ZO = _use_ZO;
-	return false;
+	return true;
 }
 
 FVector AGameGridBase::Grid_pos_cal(const FVector& pos)
@@ -36,6 +42,21 @@ FVector AGameGridBase::Grid_pos_cal(const FVector& pos)
 	else { z = pos.Z; }
 	FVector pos2 = FVector(gridx, gridy, z);
 	return pos2;
+}
+
+TArray<FVector>* AGameGridBase::Get_grid_posos()
+{
+	return &grid_poses;
+}
+
+int AGameGridBase::Get_rows()
+{
+	return rows;
+}
+
+int AGameGridBase::Get_cols()
+{
+	return cols;
 }
 
 //FVector AGameGridBase::Editor_grid_pos_cal(const FVector& pos)
@@ -57,6 +78,30 @@ int AGameGridBase::Grid_axis_cal(int val)
 	val += half_gap * v_sign;
 	int grid_v = val / gap * gap;
 	return grid_v;
+}
+
+bool AGameGridBase::Grid_pos_generator()
+{
+	grid_poses.Empty();
+	rows = 0, cols = 0;
+	int gridx = 0, gridy = 0;
+	FVector* temp = nullptr;
+	int row_c = 0, col_c = 0;
+	for (int x = lx; x < rx; x += gap)
+	{
+		++row_c;
+		for (int y = dy; y < uy; y += gap)
+		{
+			gridx = Grid_axis_cal(x);
+			gridy = Grid_axis_cal(y);
+			temp = new FVector(gridx, gridy, 0);
+			grid_poses.Add(*temp);
+			++col_c;
+		}
+		cols = cols == 0 ? col_c : cols;
+	}
+	rows = rows == 0 ? row_c : row_c;
+	return true;
 }
 
 // Called every frame

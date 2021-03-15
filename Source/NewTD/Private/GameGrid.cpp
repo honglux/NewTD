@@ -3,6 +3,7 @@
 
 #include "GameGrid.h"
 #include "GridContainer.h"
+#include "GameGridBase.h"
 
 #include <string>
 
@@ -12,44 +13,45 @@ AGameGrid::AGameGrid()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
-	rows = 0;
-	cols = 0;
+	//rows = 0;
+	//cols = 0;
 	containers = TMap<FString, AGridContainer*>();
+	//prefab = nullptr;
 }
 
-AGameGrid::AGameGrid(int _r, int _c)
-{
-	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = false;
+//AGameGrid::AGameGrid(int _r, int _c)
+//{
+//	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+//	PrimaryActorTick.bCanEverTick = false;
+//
+//	rows = _r;
+//	cols = _c;
+//	containers = TMap<FString, AGridContainer*>();
+//}
 
-	rows = _r;
-	cols = _c;
-	containers = TMap<FString, AGridContainer*>();
-}
+//void AGameGrid::SetContainerPrefab(UObject* _prefab)
+//{
+//	prefab = _prefab;
+//}
 
-void AGameGrid::SetContainerPrefab(UObject* prefab)
-{
-	//cont_prefab = prefab->GetClass();
-}
-
-bool AGameGrid::InitContainers(int _lx, int _rx, int _dy, int _uy, int gap,
-	class TSubclassOf<AGridContainer> cont_prefab)
+bool AGameGrid::InitContainers(class TSubclassOf<AGridContainer> cont_prefab, 
+	AGameGridBase* GGB_OBJ)
 {
 	FString coord_str = "";
 	AGridContainer* temp_cont = nullptr;
 	FVector temp_vec;
-	for (int x = _lx; x < _rx; x += gap)
+	TArray<FVector> pos_arr = *(GGB_OBJ->Get_grid_posos());
+	int x = 0, y = 0;
+	for (int i = 0; i < pos_arr.Num(); ++i)
 	{
-		for (int y = _dy; y < _uy; y += gap)
-		{
-			coord_str = CoordToString(x, y);
-			temp_vec = FVector(x, y, 0);
-			temp_cont = (AGridContainer*)(GetWorld()->SpawnActor(cont_prefab,
-				&temp_vec));
-		}
+		x = pos_arr[i].X;
+		y = pos_arr[i].Y;
+		coord_str = CoordToString(x, y);
+		temp_cont = (AGridContainer*)(GetWorld()->SpawnActor(cont_prefab,
+			&pos_arr[i]));
+		containers.Add(coord_str, temp_cont);
 	}
-
-	return false;
+	return true;
 }
 
 FString AGameGrid::CoordToString(int _r, int _c)

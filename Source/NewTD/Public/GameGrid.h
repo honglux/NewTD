@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 
 #include "GridContainer.h"
+#include "GameGridBase.h"
 
 #include "GameGrid.generated.h"
 
@@ -17,21 +18,22 @@ class NEWTD_API AGameGrid : public AActor
 protected:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	TMap<FString, AGridContainer*> containers;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	int rows;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	int cols;
+	//UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	//int rows;
+	//UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	//int cols;
+	//UObject* prefab;
 
 public:	
 	// Sets default values for this actor's properties
 	AGameGrid();
-	AGameGrid(int _r, int _c);
+	//AGameGrid(int _r, int _c);
 
+	//UFUNCTION(BlueprintCallable)
+	//void SetContainerPrefab(UObject* _prefab);
 	UFUNCTION(BlueprintCallable)
-	void SetContainerPrefab(UObject* prefab);
-	UFUNCTION(BlueprintCallable)
-		bool InitContainers(int _lx, int _rx, int _dy, int _uy, int gap,
-			class TSubclassOf<AGridContainer> cont_prefab);
+	bool InitContainers(class TSubclassOf<AGridContainer> cont_prefab, 
+		AGameGridBase* GGB_OBJ);
 	UFUNCTION(BlueprintCallable)
 	FString CoordToString(int _r, int _c);
 

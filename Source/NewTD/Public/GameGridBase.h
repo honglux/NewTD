@@ -26,6 +26,12 @@ protected:
 	int gap;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	bool use_ZO;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TArray<FVector> grid_poses;	//x and y poses, z set to 0;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int rows;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int cols;
 	
 public:	
 	// Sets default values for this actor's properties
@@ -39,11 +45,17 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	FVector Editor_grid_pos_cal(const FVector& pos);
 
+	TArray<FVector>* Get_grid_posos();
+	int Get_rows();
+	int Get_cols();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	virtual int Grid_axis_cal(int val);
+	UFUNCTION(BlueprintCallable)
+	bool Grid_pos_generator();
 
 public:	
 	// Called every frame
