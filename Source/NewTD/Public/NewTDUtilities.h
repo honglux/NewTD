@@ -7,21 +7,27 @@
 
 #include "GridContainer.h"
 #include "GameGridBase.h"
+#include "Unit.h"
 
-#include "GameGrid.generated.h"
+#include "NewTDUtilities.generated.h"
 
 UCLASS()
-class NEWTD_API AGameGrid : public AActor
+class NEWTD_API ANewTDUtilities : public AActor
 {
 	GENERATED_BODY()
-
-protected:
-
+	
 public:	
 	// Sets default values for this actor's properties
-	AGameGrid();
+	ANewTDUtilities();
+
+	UFUNCTION(BlueprintCallable)
+	static AGridContainer* AIGetNextContainer(AUnit* unit,
+		AGameGridBase* grid_base, MapDirection dir);
 
 protected:
+
+	static int grid_target_score_cal(AUnit* unit, AGridContainer* container);
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
