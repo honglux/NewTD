@@ -150,6 +150,16 @@ public:
 	/// <returns></returns>
 	UFUNCTION(BlueprintCallable)
 		TArray<AGridContainer*> Get_next_row_containers(const FVector& pos, MapDirection dir);
+	/// <summary>
+	/// Get container object from world position.
+	/// </summary>
+	UFUNCTION(BlueprintCallable)
+		AGridContainer* Get_container_from_pos(const FVector& pos);
+	/// <summary>
+	/// Add building to container based on world position;
+	/// </summary>
+	UFUNCTION(BlueprintCallable)
+		bool Add_building_to_container(const FVector& pos, AUnit* _building);
 
 	TArray<FVector>* Get_grid_posos();
 	int Get_rows();

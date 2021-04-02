@@ -102,7 +102,7 @@ bool AGameGridBase::Clear_containers()
 {
 	for (auto it = container_pool.CreateIterator(); it; ++it)
 	{
-		it->Value->Destroy();
+		if (it->Value != nullptr) { it->Value->Destroy(); }
 	}
 	container_pool.Empty();
 	return true;
@@ -160,6 +160,24 @@ TArray<AGridContainer*> AGameGridBase::Get_next_row_containers(const FVector& po
 	r = dir == MapDirection::up ? r + 1 : r - 1;
 	TArray<AGridContainer*> res = Get_row_containers(r);
 	return res;
+}
+
+AGridContainer* AGameGridBase::Get_container_from_pos(const FVector& pos)
+{
+	FVector g_pos = Grid_pos_cal(pos);
+	FString coord_str = CoordToString_pos(pos);
+	if (container_pool.Contains(coord_str))
+	{
+		return container_pool[coord_str];
+	}
+	return nullptr;
+}
+
+bool AGameGridBase::Add_building_to_container(const FVector& pos, AUnit* _building)
+{
+	AGridContainer* con = Get_container_from_pos(pos);
+	con->Add_to_container(_building);
+	return false;
 }
 
 TArray<FVector>* AGameGridBase::Get_grid_posos()

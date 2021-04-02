@@ -36,6 +36,12 @@ int AGridContainer::Get_pos_index()
 	return pos_index;
 }
 
+bool AGridContainer::Add_to_container(AUnit* _building)
+{
+	building = _building;
+	return true;
+}
+
 // Called when the game starts or when spawned
 void AGridContainer::BeginPlay()
 {
