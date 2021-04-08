@@ -34,6 +34,10 @@ public:
 		virtual int Get_pos_index();
 	UFUNCTION(BlueprintCallable)
 		virtual bool Add_to_container(AUnit* _building);
+	UFUNCTION(BlueprintCallable)
+		virtual bool Erase_building();
+	UFUNCTION(BlueprintCallable)
+		bool IsBuildable(TEnumAsByte<PlayerGroup_enum> _player_group);
 
 	virtual void Init_GridCcontainer(int _pos_index);
 	TEnumAsByte<PlayerGroup_enum> Get_player_group();

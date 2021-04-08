@@ -33,6 +33,11 @@ public:
 	AUnit* getTarget() { return this->target; }
 	void setTarget(AUnit* tar) { target = tar; }
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TEnumAsByte<PlayerGroup_enum> player_group;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TEnumAsByte<ContainerBuilding_enum> building_state;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -53,10 +58,7 @@ protected:
 	FVector location;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	AUnit* target;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	TEnumAsByte<PlayerGroup_enum> player_group;
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	TEnumAsByte<ContainerBuilding_enum> building_state;
+
 
 public:	
 	// Called every frame

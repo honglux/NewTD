@@ -39,7 +39,21 @@ int AGridContainer::Get_pos_index()
 bool AGridContainer::Add_to_container(AUnit* _building)
 {
 	building = _building;
+	building_state = _building->building_state;
 	return true;
+}
+
+bool AGridContainer::Erase_building()
+{
+	building_state = ContainerBuilding_enum::empty;
+	building = nullptr;
+	return false;
+}
+
+bool AGridContainer::IsBuildable(TEnumAsByte<PlayerGroup_enum> _player_group)
+{
+	return (player_group == _player_group) &&
+		building_state == ContainerBuilding_enum::empty;
 }
 
 // Called when the game starts or when spawned
