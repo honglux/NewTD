@@ -15,14 +15,22 @@ AUnit::AUnit()
 void AUnit::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	time = 0;
 }
 
 // Called every frame
 void AUnit::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	time += DeltaTime;
 
+	if (time >= attack_interval) {
+
+	}
+}
+
+void AUnit::Attcking (AUnit* target) {
+	target->health
 }
 
 // Called to bind functionality to input

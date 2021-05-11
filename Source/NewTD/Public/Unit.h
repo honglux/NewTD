@@ -59,11 +59,14 @@ protected:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	AUnit* target;
 
+	float time;
+
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
+	
+	void Attcking(AUnit* target);
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 };
