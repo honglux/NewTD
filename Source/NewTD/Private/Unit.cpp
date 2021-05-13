@@ -30,6 +30,7 @@ void AUnit::Tick(float DeltaTime)
 			time += DeltaTime;
 
 			if (time >= attack_interval) {
+				AttackAnimation();
 				target->health -= this->damage;
 				time = 0.0f;
 			}
@@ -45,6 +46,7 @@ void AUnit::Tick(float DeltaTime)
 	if (targets.Num() >= 0 && isAttacking) {
 		time += DeltaTime;
 		if (time >= attack_interval) {
+			AttackAnimation();
 			for (auto t : targets) {
 				t->health -= this->damage;
 			}
