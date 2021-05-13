@@ -68,6 +68,10 @@ void AUnit::AOEAttcking (TArray<AUnit*> ts) {
 	}
 }
 
+void AUnit::AttackAnimation_Implementation() {
+
+}
+
 // Called to bind functionality to input
 void AUnit::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {

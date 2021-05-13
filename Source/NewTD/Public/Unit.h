@@ -74,6 +74,8 @@ public:
 	void Attcking(AUnit* t);
 	UFUNCTION(BlueprintCallable)
 	void AOEAttcking(TArray<AUnit*> ts);
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	void AttackAnimation();
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 };
