@@ -58,6 +58,8 @@ protected:
 	FVector location;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	AUnit* target;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	bool isAttacking;
 
 	float time;
 
