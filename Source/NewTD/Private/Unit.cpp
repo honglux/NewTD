@@ -11,6 +11,7 @@ AUnit::AUnit()
 	target = NULL;
 	time = 0.0f;
 	isAttacking = false;
+	isAOE = false;
 }
 
 // Called when the game starts or when spawned
@@ -23,9 +24,9 @@ void AUnit::BeginPlay()
 // Called every frame
 void AUnit::Tick(float DeltaTime)
 {
+	Super::Tick(DeltaTime);
 	if (target) {
 		if (isAttacking) {
-			Super::Tick(DeltaTime);
 			time += DeltaTime;
 
 			if (time >= attack_interval) {
@@ -40,11 +41,31 @@ void AUnit::Tick(float DeltaTime)
 			isAttacking = false;
 		}
 	}
+
+	if (targets.Num() >= 0 && isAttacking) {
+		time += DeltaTime;
+		if (time >= attack_interval) {
+			for (auto t : targets) {
+				t->health -= this->damage;
+			}
+			time = 0.0f;
+			isAttacking = false;
+		}
+	}
+
+
 }
 
 void AUnit::Attcking (AUnit* t) {
 	target = t;
 	isAttacking = true;
+}
+
+void AUnit::AOEAttcking(TArray<AUnit*> ts) {
+	if (!isAttacking) {
+		targets = ts;
+		isAttacking = true;
+	}
 }
 
 // Called to bind functionality to input

@@ -59,8 +59,11 @@ protected:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	AUnit* target;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TArray<AUnit*> targets;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	bool isAttacking;
-
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	bool isAOE;
 	float time;
 
 
@@ -68,7 +71,8 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	
-	void Attcking(AUnit* target);
+	void Attcking(AUnit* t);
+	void AOEAttcking(TArray<AUnit*> ts);
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 };
