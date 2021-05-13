@@ -35,9 +35,9 @@ void AUnit::Tick(float DeltaTime)
 			}
 		}
 
-		float dist = FVector::Dist(this->location, target->location);
+		float dist = FVector::Dist(this->GetActorLocation(), target->GetActorLocation());
 
-		if (target->health <= 0.0f || dist >= 300.0f) {
+		if (target->health <= 0.0f || dist >= 400.0f) {
 			isAttacking = false;
 		}
 	}
