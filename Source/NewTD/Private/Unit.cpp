@@ -61,7 +61,7 @@ void AUnit::Attcking (AUnit* t) {
 	isAttacking = true;
 }
 
-void AUnit::AOEAttcking(TArray<AUnit*> ts) {
+void AUnit::AOEAttcking (TArray<AUnit*> ts) {
 	if (!isAttacking) {
 		targets = ts;
 		isAttacking = true;

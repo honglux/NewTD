@@ -70,8 +70,9 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	
+	UFUNCTION(BlueprintCallable)
 	void Attcking(AUnit* t);
+	UFUNCTION(BlueprintCallable)
 	void AOEAttcking(TArray<AUnit*> ts);
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
