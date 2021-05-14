@@ -31,8 +31,6 @@ void AUnit::Tick(float DeltaTime)
 
 			if (time >= attack_interval) {
 				(target->health) -= (this->damage);
-				if (GEngine)
-					GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("health %f"), target->health));
 				time = 0.0f;
 				AttackAnimation();
 			}
@@ -50,8 +48,6 @@ void AUnit::Tick(float DeltaTime)
 		if (time >= attack_interval) {
 			AOEAnimation = true;
 			AttackAnimation();
-			if (GEngine)
-				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("health")));
 			for (auto t : targets) {
 				t->health -= this->damage;
 			}
