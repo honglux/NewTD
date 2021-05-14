@@ -12,6 +12,7 @@ AUnit::AUnit()
 	time = 0.0f;
 	isAttacking = false;
 	isAOE = false;
+	AOEAnimation = false;
 }
 
 // Called when the game starts or when spawned
@@ -46,11 +47,13 @@ void AUnit::Tick(float DeltaTime)
 	if (targets.Num() >= 0 && isAttacking) {
 		time += DeltaTime;
 		if (time >= attack_interval) {
+			AOEAnimation = true;
 			AttackAnimation();
 			for (auto t : targets) {
 				t->health -= this->damage;
 			}
 			time = 0.0f;
+			AOEAnimation = false;
 			isAttacking = false;
 		}
 	}

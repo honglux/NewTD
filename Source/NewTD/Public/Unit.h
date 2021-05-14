@@ -64,6 +64,8 @@ protected:
 	bool isAttacking;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	bool isAOE;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	bool AOEAnimation;
 	float time;
 
 
