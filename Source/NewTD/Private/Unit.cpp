@@ -11,7 +11,6 @@ AUnit::AUnit()
 	target = NULL;
 	time = 0.0f;
 	isAttacking = false;
-	isAOE = false;
 	AOEAnimation = false;
 }
 
@@ -26,14 +25,16 @@ void AUnit::BeginPlay()
 void AUnit::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (target) {
+	if (target && !isAOE) {
 		if (isAttacking) {
 			time += DeltaTime;
 
 			if (time >= attack_interval) {
-				AttackAnimation();
-				target->health -= this->damage;
+				(target->health) -= (this->damage);
+				if (GEngine)
+					GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("health %f"), target->health));
 				time = 0.0f;
+				AttackAnimation();
 			}
 		}
 
@@ -44,11 +45,13 @@ void AUnit::Tick(float DeltaTime)
 		}
 	}
 
-	if (targets.Num() >= 0 && isAttacking) {
+	if (isAOE && targets.Num() >= 0 && isAttacking) {
 		time += DeltaTime;
 		if (time >= attack_interval) {
 			AOEAnimation = true;
 			AttackAnimation();
+			if (GEngine)
+				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("health")));
 			for (auto t : targets) {
 				t->health -= this->damage;
 			}
