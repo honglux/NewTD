@@ -10,6 +10,8 @@
 #include "GameFramework/Actor.h"
 #include "TCPClient.generated.h"
 
+static bool TCP_thread = false;
+
 UCLASS()
 class NEWTD_API ATCPClient : public AActor
 {
@@ -25,6 +27,7 @@ public:
 
 	FIPv4Address ip;
 	FSocket* Socket;
+	bool received_trigger;
 
 	// Sets default values for this actor's properties
 	ATCPClient();
@@ -37,6 +40,9 @@ public:
 
 	UFUNCTION(BlueprintNativeEvent)
 		void DataReceived();
+
+	UFUNCTION(BlueprintCallable)
+		void StopThread();
 
 	void DataReceived_thread(FString message);
 
@@ -77,7 +83,7 @@ public:
 	{
 		TArray<uint8> ReceiveData;
 		uint8 element = 0;
-		while (Socket != NULL)
+		while (TCP_thread && Socket != NULL)
 		{
 			ReceiveData.Init(element, 1024u);
 			int32 read = 0;
@@ -89,5 +95,6 @@ public:
 
 			FPlatformProcess::Sleep(0.01f);
 		}
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Thread stopped"));
 	}
 };

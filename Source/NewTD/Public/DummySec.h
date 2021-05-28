@@ -4,18 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "EditorGridTick.generated.h"
+#include "DummySec.generated.h"
 
 UCLASS()
-class NEWTD_API AEditorGridTick : public AActor
+class NEWTD_API ADummySec : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	AEditorGridTick();
-	//int i = 0;
-	//virtual bool ShouldTickIfViewportsOnly() const override;
+	ADummySec();
 
 protected:
 	// Called when the game starts or when spawned
@@ -24,8 +22,5 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	//UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
-	//void print_test();
-	//UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-	//void EditorGridTickEvent();
+
 };

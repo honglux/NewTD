@@ -13,10 +13,10 @@ AEditorGridTick::AEditorGridTick()
 	PrimaryActorTick.bCanEverTick = true;
 }
 
-bool AEditorGridTick::ShouldTickIfViewportsOnly() const
-{
-	return true;
-}
+//bool AEditorGridTick::ShouldTickIfViewportsOnly() const
+//{
+//	return true;
+//}
 
 // Called when the game starts or when spawned
 void AEditorGridTick::BeginPlay()
@@ -27,8 +27,8 @@ void AEditorGridTick::BeginPlay()
 // Called every frame
 void AEditorGridTick::Tick(float DeltaTime)
 {
-	Super::Tick(DeltaTime);
-	EditorGridTickEvent();
+	//Super::Tick(DeltaTime);
+	//EditorGridTickEvent();
 	//if (GEngine)
 	//{
 	//	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow,
@@ -36,9 +36,9 @@ void AEditorGridTick::Tick(float DeltaTime)
 	//}
 }
 
-void AEditorGridTick::EditorGridTickEvent_Implementation()
-{
-}
+//void AEditorGridTick::EditorGridTickEvent_Implementation()
+//{
+//}
 
 
 

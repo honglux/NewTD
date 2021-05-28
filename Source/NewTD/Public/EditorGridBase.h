@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "EditorUtilityActor.h"
+#include "GameFramework/Actor.h"
 #include "EditorGridBase.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class NEWTD_API AEditorGridBase : public AEditorUtilityActor
+class NEWTD_API AEditorGridBase : public AActor
 {
 	GENERATED_BODY()
 	

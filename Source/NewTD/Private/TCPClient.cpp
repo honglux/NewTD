@@ -8,7 +8,7 @@ ATCPClient::ATCPClient()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+	received_trigger = false;
 }
 
 // Called when the game starts or when spawned
@@ -23,6 +23,11 @@ void ATCPClient::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	if (received_trigger)
+	{
+		DataReceived();
+		received_trigger = false;
+	}
 }
 
 void ATCPClient::ConnectServer()
@@ -37,13 +42,19 @@ void ATCPClient::ConnectServer()
 
 	bool connected = Socket->Connect(*addr);
 
-	(new FAutoDeleteAsyncTask<ReceiveThreading>(this, Socket))->StartBackgroundTask();
+	if (connected)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "Connected");
+	}
+	TCP_thread = true;
+	auto thread_ptr = new FAutoDeleteAsyncTask<ReceiveThreading>(this, Socket);
+	thread_ptr->StartBackgroundTask();
 }
 
 void ATCPClient::SendData(FString data)
 {
 	if (Socket == nullptr) { return; }
-	FString message = FString(TEXT("Unreal client"));
+	FString message = data;
 	TCHAR* seriallizedChar = message.GetCharArray().GetData();
 	int32 size = FCString::Strlen(seriallizedChar) + 1;
 	int32 sent = 0;
@@ -67,5 +78,10 @@ void ATCPClient::DataReceived_Implementation()
 void ATCPClient::DataReceived_thread(FString message)
 {
 	receive_message = message;
-	DataReceived();
+	received_trigger = true;
+}
+
+void ATCPClient::StopThread()
+{
+	TCP_thread = false;
 }
